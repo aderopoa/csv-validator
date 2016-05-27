@@ -44,7 +44,12 @@ if(file_exists($filename) && is_readable($filename)) {
 
             // Remove first column as it is used to identify Class Keys
             if ($columnCount == 1) {
-                $header = $row;
+                foreach ($row as $key => $variable) {
+                    $classVariable = preg_replace('/[^\da-z ]/i', '', $variable);
+                    $classVariable = str_replace(' ', '_', $classVariable);
+                    $classVariable = strtolower($classVariable);
+                    $header[$key] = $classVariable;
+                }
                 continue;
             }
 
